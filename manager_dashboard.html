@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Add any additional styles specific to the Manager dashboard -->
+</head>
+<body>
+    <div class="container">
+        <div class="form-box" style="max-width: 950px;">
+            <h1 id="title">Manager Dashboard</h1>
+            <div id="request-list">
+                <table id="displayTable">
+                    <!-- Existing table header -->
+                    <tr>
+                        <th>Date</th>
+                        <th>Email</th>
+                        <th>Reason</th>
+                        <!-- Two additional columns for buttons -->
+                        <th>Approve</th>
+                        <th>Decline</th>
+                    </tr>
+                </table>
+            </div>
+            <a href="/login">Logout</a>
+        </div>
+    </div>
+    <script>
+        // Function to update the table with the latest leave requests
+        function updateTable() {
+            const leaveRequestsString = localStorage.getItem("leaveRequests");
+            if (leaveRequestsString) {
+                const leaveRequests = JSON.parse(leaveRequestsString);
+                const table = document.getElementById("displayTable");
+                table.innerHTML = `
+                    <tr>
+                        <th>Date</th>
+                        <th>Email</th>
+                        <th>Reason</th>
+                        <th>Approve</th>
+                        <th>Decline</th>
+                    </tr>
+                `;
+
+                function createButton(text, clickHandler) {
+                    const button = document.createElement("button");
+                    button.textContent = text;
+                    button.addEventListener("click", clickHandler);
+                    return button;
+                }
+
+                leaveRequests.forEach(formData => {
+                    const newRow = document.createElement("tr");
+                    newRow.innerHTML = `
+                        <td>${formData.Date}</td>
+                        <td>${formData.Email}</td>
+                        <td>${formData.Reason}</td>
+                    `;
+
+                    // Create "Approve" button and attach the approveHandler function as the click event handler
+                    const approveButton = createButton("Approve", function() {
+                        const emailToDelete = formData.Email;
+                        var emailAddress = formData.Email;
+                        // Find the index of the form data in the array based on Date and Email
+                        const index = leaveRequests.findIndex(item => item.Date === formData.Date && item.Email === formData.Email);
+                        if (index !== -1) {
+                            // Remove the form data from the array
+                            leaveRequests.splice(index, 1);
+
+                            // Update the table and Local Storage after deletion
+                            updateTable();
+                            localStorage.setItem("leaveRequests", JSON.stringify(leaveRequests));
+                            // Use the emailToDelete value for any further actions, such as notifying the user
+                            console.log("Email of the entry being deleted:", emailToDelete);
+                            var subject = "Regarding Leave Request";
+                            var body = "Dear employee, We hope this email finds you well, We are delighted to inform you that your leave request has been approved";
+                            var mailtoLink = "mailto:" + encodeURIComponent(emailAddress) +"?subject=" + 
+                            encodeURIComponent(subject) +"&body=" + encodeURIComponent(body);
+                            window.location.href = mailtoLink;
+                        }
+                    });
+                    const approveColumn = document.createElement("td");
+                    approveColumn.appendChild(approveButton);
+                    newRow.appendChild(approveColumn);
+
+                    // Create "Decline" button and attach the declineHandler function as the click event handler
+                    const declineButton = createButton("Decline", function() {
+                        // Get the email entry of the entry being deleted
+                        const emailToDelete = formData.Email;
+                        var emailAddress = formData.Email;
+                        // Find the index of the form data in the array based on Date and Email
+                        const index = leaveRequests.findIndex(item => item.Date === formData.Date && item.Email === formData.Email);
+                        if (index !== -1) {
+                            // Remove the form data from the array
+                            leaveRequests.splice(index, 1);
+
+                            // Update the table and Local Storage after deletion
+                            updateTable();
+                            localStorage.setItem("leaveRequests", JSON.stringify(leaveRequests));
+                            // Use the emailToDelete value for any further actions, such as notifying the user
+                            console.log("Email of the entry being deleted:", emailToDelete);
+                            var subject = "Regarding Leave Request";
+                            var body = "Dear employee, We hope this email finds you well, We are extremely sorry to inform you that we couldn't accept your leave request at the moment";
+                            var mailtoLink = "mailto:" + encodeURIComponent(emailAddress) +"?subject=" + 
+                            encodeURIComponent(subject) +"&body=" + encodeURIComponent(body);
+                            window.location.href = mailtoLink;
+                        }
+                    });
+                    const declineColumn = document.createElement("td");
+                    declineColumn.appendChild(declineButton);
+                    newRow.appendChild(declineColumn);
+
+                    table.appendChild(newRow);
+                });
+            }
+        }
+
+        // Call the updateTable function to initially populate the table
+        updateTable();
+    </script>
+</body>
+</html>

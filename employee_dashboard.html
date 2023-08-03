@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Leave Request Form</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://kit.fontawesome.com/2ac6823aca.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="form-box">
+                <h1 id="title">Leave Request</h1>
+                <form id="myForm">
+                    <div class="input-group" id="inputgroup">
+                        <div class="input-field" id="nameField">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <input id="Date" type="date" name="date" placeholder="Date">
+                        </div>
+                        <div class="input-field" id="emailField">
+                            <i class="fa-solid fa-at"></i>
+                            <input id="Text" type="email" name="Text" placeholder="Email">
+                        </div>
+                        <div class="input-field">
+                            <i class="fa-solid fa-hat-wizard"></i>
+                            <input id="Reason" type="text" name="reason" placeholder="Reason">
+                        </div>
+                    </div>
+                    <div class="btn-field" style="padding-left: 10px;">
+                        <button onclick="redirectToOtherPage()" type="button" id="signinbtn">Log Out</button>
+                        <button  type="submit" id="submitpbtn">Submit</button>
+                        <!-- <button type="submit" class="submite">Submit</button> -->
+                        <!-- <button type="submit">Submit</button> -->
+                    </div>
+                    <!-- <button type="submit" class="submite">Submit</button> -->
+                </form>
+            </div>
+        </div>
+        <script>
+            function redirectToOtherPage(){
+                window.location.href = 'login.html';
+            }
+            document.getElementById("myForm").addEventListener("submit", function(event) {
+                event.preventDefault();
+                const name = document.getElementById("Date").value;
+                const age = document.getElementById("Text").value;
+                const department = document.getElementById("Reason").value;
+                const formData = {
+                    Date: name,
+                    Email: age,
+                    Reason: department
+                }
+                let leaveRequests = JSON.parse(localStorage.getItem("leaveRequests")) || [];
+                leaveRequests.push(formData);
+                localStorage.setItem("leaveRequests", JSON.stringify(leaveRequests));
+                window.location.href = 'manager_dashboard.html';
+            });
+
+        </script>
+    </body>
+</html>

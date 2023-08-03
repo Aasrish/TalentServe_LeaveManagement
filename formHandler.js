@@ -42,7 +42,10 @@ router.post('/login', async (req, res) => {
 
     if (isPasswordMatch) {
       // Passwords match, user is authenticated
-      return res.sendFile(__dirname + '/welcome.html');
+      if(user.role=='manager'){
+        return res.sendFile(__dirname + '/manager_dashboard.html');
+      }
+      return res.sendFile(__dirname + '/employee_dashboard.html');
     } else {
       return res.send('Invalid password.'); // Incorrect password
     }

@@ -120,3 +120,12 @@ form p a{
     background: #eaeaea;
     color: #555;
 }
+#displayTable th,
+#displayTable td {
+  padding: 50px; /* Add padding to cells for spacing */
+}
+
+/* Optionally, add spacing between the "Edit" and "Delete" buttons */
+#displayTable td:last-child {
+  padding-left: 10px;
+}
