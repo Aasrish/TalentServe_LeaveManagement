@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/2ac6823aca.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h1 id="title">Sign In</h1>
+            <form action="/login" method="post">
+                <div class="input-group" id="inputgroup" style="height: 240px;">
+                    <div class="input-field" id="emailField">
+                        <i class="fa-solid fa-id-badge"></i>
+                        <input type="text" name="employeeID" placeholder="EmployeeID">
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-lock-open"></i>
+                        <input type="password" name="password" placeholder="Password">
+                    </div>
+                </div>
+                <div class="btn-field">
+                    <button onclick="redirectToOtherPage()" type="button" id="signupbtn">Sign Up</button>
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        // Your JavaScript code for handling sign-in/sign-up switch, if needed.
+        function redirectToOtherPage(){
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign In and Sign Up Form</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://kit.fontawesome.com/2ac6823aca.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="form-box">
+                <h1 id="title">Sign Up</h1>
+                <form action="/submit-form" method="post">
+                    <div class="input-group" id="inputgroup">
+                        <div class="input-field" id="nameField">
+                            <i class="fa-solid fa-user-tie"></i>
+                            <input type="text" name="name" placeholder="Name">
+                        </div>
+                        <div class="input-field" id="emailField">
+                            <i class="fa-solid fa-at"></i>
+                            <input type="email" name="email" placeholder="Email">
+                        </div>
+                        <div class="input-field">
+                            <i class="fa-solid fa-id-badge"></i>
+                            <input type="text" name="employeeID" placeholder="Employee ID">
+                        </div>
+                        <div class="input-field">
+                            <i class="fa-solid fa-lock-open"></i>
+                            <input type="password" name="password" placeholder="Password">
+                        </div>
+                        <div class="input-field">
+                            <i class="fa-solid fa-person-circle-question"></i>
+                            <input type="text" name="role" placeholder="Role">
+                        </div>
+                        <p id="forgotpass">Forgot password? <a href="#">Click Here!</a></p>
+                    </div>
+                    <div class="btn-field">
+                        <button onclick="redirectToOtherPage()" type="button" id="signinbtn">Sign In</button>
+                        <button type="submit" id="signupbtn">Submit</button>
+                        <!-- <button type="submit" class="submite">Submit</button> -->
+                        <!-- <button type="submit">Submit</button> -->
+                    </div>
+                    <!-- <button type="submit" class="submite">Submit</button> -->
+                </form>
+            </div>
+        </div>
+        <script>
+            function redirectToOtherPage(){
+                window.location.href = 'login.html';
+            }
+        </script>
+    </body>
+</html>
